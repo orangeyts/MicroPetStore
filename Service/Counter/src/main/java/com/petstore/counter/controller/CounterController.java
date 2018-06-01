@@ -45,7 +45,8 @@ public class CounterController {
 		              options().returnNew(true),
 		              Counter.class
 		            );
-		    return counter.getSeq();
+		    return 1;
+//		    return counter.getSeq(); TODO 数据库没有值先返回一个固定的
 		  }
 
 	  @RequestMapping(value="/", method=RequestMethod.POST)	

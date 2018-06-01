@@ -1,7 +1,10 @@
 package com.petstore.category;
 
+import com.petstore.category.domain.Category;
+import com.petstore.category.repository.CategoryRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -11,8 +14,13 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @WebAppConfiguration
 public class CategoryApplicationTests {
 
+	@Autowired
+	private CategoryRepository categoryRepository;
+
 	@Test
-	public void contextLoads() {
+	public void init() {
+		Category c = new Category();
+		categoryRepository.insert(c);
 	}
 
 }

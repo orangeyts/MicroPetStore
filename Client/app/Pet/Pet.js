@@ -17,6 +17,8 @@ angular.module('myApp.pet', ['ngRoute'])
 
 .controller('PetController', ['$scope','$http','$location', 
 	                 function( $scope , $http , $location ) {
+	
+
 
     //Get Pet Information
     $http.get('http://localhost:8080/pet/')
@@ -27,7 +29,7 @@ angular.module('myApp.pet', ['ngRoute'])
 
     //Delete a Pet
     $scope.deletePet = function(petId){
-    	var URL = "http://localhost:8080/pet/" + petId;
+    	var URL = "http://localhost:9080/pet/" + petId;
 
         var response =  $http.delete(URL);
     	
@@ -39,7 +41,14 @@ angular.module('myApp.pet', ['ngRoute'])
 
     //Show Add Pet Form
     $scope.showAddPetForm = function(){
-    	clearFields();
+		clearFields();
+		//for test
+		$scope.name = "tomcat";
+		$scope.status = "Pending";
+        $scope.image = "Dog";
+        $scope.price = "1";
+        $scope.categories = "Fish";
+        $scope.tags = "1";
     	$scope.addFormShowFlag = true;
     };
 
@@ -81,7 +90,7 @@ angular.module('myApp.pet', ['ngRoute'])
     	console.log(petObject);
 
     	//Post Pet Object
-    	var response = $http.post('http://localhost:8080/pet/', petObject);
+    	var response = $http.post('http://localhost:9080/pet/', petObject);
 
     	response.success(function(data, status, headers, config){
     		$scope.message =  data;

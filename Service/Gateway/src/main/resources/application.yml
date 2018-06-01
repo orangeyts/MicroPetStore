@@ -1,0 +1,50 @@
+server:
+  port: 9080
+
+  #Setting logging levels
+logging:
+    level:
+      com.netflix: WARN
+      org.springframework.web: WARN
+      com.thoughtmechanix: DEBUG
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 10000
+                        ribbon:
+                            ReadTimeout: 10000
+                            ConnectTimeout: 10000
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  eureka:
+    enabled: false
+
+zuul:
+  host:
+      socket-timeout-millis: 10000
+      connect-timeout-millis: 2000
+  #需要忽略的头部信息，不在传播到其他服务 https://www.jianshu.com/p/56f79d888b3b
+  sensitive-headers: Access-Control-Allow-Origin
+  ignored-headers: Access-Control-Allow-Origin,H-APP-Id,Token,APPToken
+  routes:
+    #static 直接调用,不通过eureka注册中心
+    petstatic:
+      path: /pet/**
+      url: http://localhost:8080/pet

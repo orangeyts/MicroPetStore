@@ -7,6 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 @EnableDiscoveryClient
@@ -20,7 +21,11 @@ public class CategoryApplication {
 
 	@Bean
 	@LoadBalanced
-	RestTemplate restTemplate(){
-		return new RestTemplate();
+	public RestTemplate restTemplate ()
+	{
+		SimpleClientHttpRequestFactory simpleClientHttpRequestFactory  = new SimpleClientHttpRequestFactory();
+		simpleClientHttpRequestFactory.setConnectTimeout(10000);
+		simpleClientHttpRequestFactory.setReadTimeout(10000);
+		return new RestTemplate(simpleClientHttpRequestFactory);
 	}	
 }
