@@ -27,7 +27,7 @@ angular.module('myApp.pet', ['ngRoute'])
 
     //Delete a Pet
     $scope.deletePet = function(petId){
-    	var URL = "http://localhost:9080/pet/" + petId;
+    	var URL = "http://localhost:8080/pet/" + petId;
 
         var response =  $http.delete(URL);
     	
@@ -81,7 +81,7 @@ angular.module('myApp.pet', ['ngRoute'])
     	console.log(petObject);
 
     	//Post Pet Object
-    	var response = $http.post('http://localhost:9080/pet/', petObject);
+    	var response = $http.post('http://localhost:8080/pet/', petObject);
 
     	response.success(function(data, status, headers, config){
     		$scope.message =  data;
